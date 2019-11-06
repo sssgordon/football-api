@@ -1,6 +1,7 @@
 const express = require("express");
 const teamRouter = require("./team/router");
 const playerRouter = require("./player/router");
+const cityRouter = require("./city/router");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json(); // jsonParser!
 
