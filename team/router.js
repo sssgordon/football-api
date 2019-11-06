@@ -6,5 +6,10 @@ router.get("/team", (req, res, next) => {
     .then(teamList => res.json(teamList)) // no need .send because the arrow function automatically sends by returning
     .catch(next);
 });
+router.post("/team", (req, res, next) => {
+  Team.create(req.body)
+    .then(newTeam => res.json(newTeam))
+    .catch(next);
+});
 
 module.exports = router;
