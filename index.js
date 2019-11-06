@@ -1,5 +1,6 @@
 const express = require("express");
 const teamRouter = require("./team/router");
+const playerRouter = require("./player/router");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json(); // jsonParser!
 
@@ -7,6 +8,7 @@ const app = express();
 
 app.use(jsonParser);
 app.use(teamRouter);
+app.use(playerRouter);
 
 const port = process.env.PORT || 4000;
 
