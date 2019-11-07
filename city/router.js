@@ -49,7 +49,7 @@ router.delete("/city", (req, res, next) => {
 
 //delete a specific city by id
 router.delete("/city/:cityId", (req, res, next) => {
-  City.destroy(req.params.cityId)
+  City.destroy({ where: { id: req.params.cityId } })
     .then(cityDeleted => {
       if (cityDeleted) {
         res.status(204).end();

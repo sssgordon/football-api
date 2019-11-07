@@ -5,7 +5,7 @@ const Team = require("../team/model");
 const City = require("../city/model");
 
 router.get("/player", (req, res, next) => {
-  Player.findAll()
+  Player.findAll({ include: [Team, City] })
     .then(players => res.json(players))
     .catch(next);
 });
@@ -22,6 +22,13 @@ router.get("/player/:playerId", (req, res, next) => {
     .catch(next);
 });
 
+// // takes a team name as a parameter and returns all players that belong to that team
+// router.get("/player/:teamName", (req, res, next) => {
+//   Player.findAll({ where: {} }, { include: [Team, City] })
+//     .then(players => res.json(players))
+//     .catch(next);
+// });
+
 router.post("/player", (req, res, next) => {
   Player.create(req.body)
     .then(newPlayer => res.json(newPlayer))
@@ -33,6 +40,26 @@ router.put("/player/:playerId", (req, res, next) => {
     .then(player => {
       if (player) {
         player.update(req.body).then(updatedPlayer => res.json(updatedPlayer));
+      } else {
+        res.status(404).end();
+      }
+    })
+    .catch(next);
+});
+
+//delete all players
+router.delete("/player", (req, res, next) => {
+  Player.destroy()
+    .then(() => res.status(204).end())
+    .catch(next);
+});
+
+//delete a specific player by id
+router.delete("/player/:playerId", (req, res, next) => {
+  Player.destroy({ where: { id: req.params.playerId } })
+    .then(playerDeleted => {
+      if (playerDeleted) {
+        res.status(204).end();
       } else {
         res.status(404).end();
       }

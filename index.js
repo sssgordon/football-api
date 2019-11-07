@@ -10,6 +10,7 @@ const app = express();
 app.use(jsonParser);
 app.use(teamRouter);
 app.use(playerRouter);
+app.use(cityRouter);
 
 const port = process.env.PORT || 4000;
 
